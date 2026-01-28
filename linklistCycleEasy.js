@@ -11,14 +11,17 @@ class LinkList {
   }
 }
 
-const node1 = new Node(10);
-const node2 = new Node(20);
-const node3 = new Node(30);
-const node4 = new Node(40);
+const node1 = new Node(1);
+const node2 = new Node(2);
+const node3 = new Node(1);
+const node4 = new Node(2);
+const node5 = new Node(1);
+
 const list = new LinkList(node1);
 list.head.next = node2;
 node2.next = node3;
 node3.next = node4;
+node4.next = node5;
 
 // Reverse the linklist
 function reverseLinklist(list) {
@@ -74,19 +77,59 @@ function midOfLinklist(list) {
   let curr = list.head;
   let arr = [];
   let mid = 0;
-  console.log("listttt>>>>>>>>>.", list);
   while (curr) {
     curr = curr.next;
-    console.log("vcurrrrr", curr?.value);
     arr.push(curr?.value);
   }
 
-  mid = Math.floor(arr.length / 2);
+  mid = Math.floor((arr.length - 1) / 2);
 
-  console.log("arrr", arr);
   return arr[mid];
 }
 
-console.log(midOfLinklist(list));
+// console.log(midOfLinklist(list));
 
-// second approach is slow and fast pointer
+// second approach is slow and fast pointer for finding the mid element of the linklist
+
+function linkListSlowAndFastPointer(list) {
+  console.log(list);
+  let slow = list.head;
+  let fast = list.head;
+  while (fast && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow.value;
+}
+
+// console.log(linkListSlowAndFastPointer(list));
+
+//  Reverse of pallindrome do a reeverse of pallindrome
+
+//  Approach -1
+// Traverse from the linklist and grab the data from the linklist and save it to the queue.
+
+const linklistpallendrome = (list) => {
+  //  remove the element from the linklist and saveit in the stack
+  let stack = [];
+  let curr = list.head;
+  let checkList = list.head;
+
+  while (curr != null) {
+    stack.push(curr.value);
+    curr = curr.next;
+  }
+  while (checkList != null) {
+    c = stack.pop();
+
+    if (checkList.value != c) {
+      return false;
+    }
+    checkList = checkList?.next;
+  }
+
+  return true;
+};
+
+console.log(linklistpallendrome(list));
